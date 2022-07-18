@@ -8,6 +8,9 @@ export class User {
     id!: number;
 
     @Column()
+    email!: string;
+
+    @Column()
     first_name!: string;
 
     @Column()
@@ -15,6 +18,12 @@ export class User {
 
     @Column()
     password!: string;
+
+    @Column()
+    token!: string;
+
+    @Column()
+    reset_password_token!: string;
 
     @OneToMany(() => Post, (post) => post.user_id, { cascade: true } )
     post: Post[]
