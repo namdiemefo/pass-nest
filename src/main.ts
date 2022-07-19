@@ -4,8 +4,9 @@ import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // const seeder = app.get(Seeder);
-  // await seeder.seed();
+  const seeder = app.get(Seeder);
+  //await seeder.seedUser();
+  //await seeder.seedPosts()
   await app.listen(3000);
 }
 bootstrap();

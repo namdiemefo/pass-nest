@@ -17,7 +17,9 @@ export const signJWT = (user: User, callback: (error: Error | null, token: strin
 
     let payload =  {
         email: user.email,
-        id: user.id
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name
     };
 
     let key = config.secret;
