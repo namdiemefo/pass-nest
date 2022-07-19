@@ -40,7 +40,7 @@ export class UserRepository {
     }
 
     editUser = async (id: number, first_name, last_name)  => {
-        
+
         await this.userRepository.update(id, { first_name: first_name, last_name: last_name })
 
     }

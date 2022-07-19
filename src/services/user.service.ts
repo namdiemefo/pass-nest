@@ -2,7 +2,7 @@ import { UserRepository } from "src/repository/user.repository";
 import { User } from "src/models/user.model";
 import signJWT from "src/middlewares/jwt";
 import { AppUtils } from "src/utils/app.utils";
-import crypto from 'crypto';
+import { randomBytes } from "crypto";
 import { Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -35,6 +35,11 @@ export class UserService {
     
             })
 
+            let response = AppUtils.appResponseWithData(200, "User signed in successfully", "Success", user);
+            return response;
+
+
+
         } else {
             let response = AppUtils.appResponse(400, "User does not exist", "Failed");
             return response;  
@@ -42,7 +47,7 @@ export class UserService {
 
     }
 
-    saveUser = async (body) : Promise<any> => {
+    saveUser = async function (body) : Promise<any>  {
 
         const { first_name, last_name, email, password } = body;
 
@@ -51,6 +56,7 @@ export class UserService {
         user.last_name = last_name;
         user.email = email;
         user.password = password;
+        user.reset_password_token = "";
 
         signJWT(user, async (error, token) => {
             if (error != null) {
@@ -60,12 +66,15 @@ export class UserService {
 
             if (token != null) {
                 user.token = token;
+                console.log(user);
                 await this.userRepository.saveUser(user);
-                let response = AppUtils.appResponse(200, "Failed to generate token", "Token Error");
-                return response;
+                
             }
 
         })
+
+        let response = AppUtils.appResponse(200, "User created successfully", "User");
+        return response;
         
 
     }
@@ -133,7 +142,7 @@ export class UserService {
 
     forgotPassword = async (id) => {
 
-        const token = crypto.randomBytes(20).toString("hex");
+        const token = randomBytes(20).toString("hex");
 
         await this.userRepository.updateResetToken(id, token);
 

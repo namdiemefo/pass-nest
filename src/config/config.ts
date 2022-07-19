@@ -16,12 +16,21 @@ console.log(env.isDev);
 
 
 // dotenv.config();
+// const config = {
+//   configPath,
+//   // rootPath,
+//   issuer: process.env.ISSUER,
+//   inProduction: !env.isDev,
+//   secret: process.env.SECRET,
+//   port: env.isDev ? process.env.LOCAL_PORT : process.env.PORT,
+// };
+
 const config = {
   configPath,
   // rootPath,
-  issuer: process.env.ISSUER,
+  issuer: "ourpass",
   inProduction: !env.isDev,
-  secret: process.env.SECRET,
+  secret: "9kwrFNszZj6nzvH1QrQd0WfM6Dhfk6OUvqzr1943TUOAdfkjryyeD8uctdseFEd5E8",
   port: env.isDev ? process.env.LOCAL_PORT : process.env.PORT,
 };
 

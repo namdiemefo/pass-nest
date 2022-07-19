@@ -1,30 +1,38 @@
 import jwt from 'jsonwebtoken';
+import { sign, SignOptions } from 'jsonwebtoken';
 import { User } from 'src/models/user.model';
 import config from 'src/config/config';
 import logging from 'src/config/logging';
 import { NextFunction } from 'express';
+
 
 const NAMESPACE = 'AUTH';
 
 export const signJWT = (user: User, callback: (error: Error | null, token: string | null) => void): void => {
     const timeSinchEpoch = new Date().getTime();
     const expirationTime = timeSinchEpoch + 240 * 100000;
-    const expirationTimeInSeconds = Math.floor(expirationTime / 1000);
+    const expirationTimeInSeconds: number = Math.floor(expirationTime / 1000);
 
     console.log(`Attempting to sign token for ${user.first_name}`);
 
+    let payload =  {
+        email: user.email,
+        id: user.id
+    };
+
+    let key = config.secret;
+
+    let options: SignOptions = {
+        issuer: config.issuer,
+        algorithm: 'HS256',
+        expiresIn: expirationTimeInSeconds
+    };
+
     try {
-        jwt.sign(
-            {
-                email: user.email,
-                id: user.id
-            },
-            config.secret,
-            {
-                issuer: config.issuer,
-                algorithm: 'HS256',
-                expiresIn: expirationTimeInSeconds
-            },
+        sign(
+            payload,
+            key,
+            options,
             (error, token) => {
                 if (error) {
                     callback(error, null);
