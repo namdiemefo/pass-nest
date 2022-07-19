@@ -1,9 +1,9 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { NextFunction } from 'express';
 import { TypeOrmConfigService } from "src/db/db";
 import { Seeder } from 'src/db/seeders/seeder';
 import { AuthenticationMiddleware } from 'src/middlewares/jwt.middleware';
+import { CategoryModule } from './category.module';
 import { PostModule } from './post.module';
 import { UserModule } from './user.module';
 
@@ -11,7 +11,8 @@ import { UserModule } from './user.module';
   imports: [
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     UserModule,
-    PostModule
+    PostModule,
+    CategoryModule
   ],
   providers: [Seeder]
 })
@@ -27,6 +28,10 @@ export class AppModule implements NestModule {
       consumer
       .apply(AuthenticationMiddleware)
       .forRoutes('/api/v1/post')
+
+      consumer
+      .apply(AuthenticationMiddleware)
+      .forRoutes('/api/v1/category')
       
       
 

@@ -2,8 +2,8 @@ import { Controller, Delete, Get, Inject, Param, Post, Put, Req, Res } from '@ne
 import { Request, Response } from 'express';
 import { CategoryService } from 'src/services/category.service';
 
-@Controller('/api/v1/post')
-export class PostController {
+@Controller('/api/v1/category')
+export class CategoryController {
   constructor(@Inject(CategoryService) private readonly categoryService: CategoryService) {}
 
   @Post('/create')
