@@ -11,19 +11,19 @@ export class PostRepository {
 
     savePost = async (user: Post) => {
 
-        await this.postRepository.save(user);
+        await this.postRepository.insert(user);
 
     }
 
     getPosts = async () : Promise<Post[]> => {
 
-        return await this.postRepository.find({relations: { user_id: true }});
+        return await this.postRepository.find({relations: { user_id: true, categories: true }});
         
     }
 
     getPost = async (id) : Promise<Post> => {
 
-        return await this.postRepository.findOne({ where : { id: id }, relations: { user_id: true } });
+        return await this.postRepository.findOne({ where : { id: id }, relations: { user_id: true, categories: true } });
         
     }
 

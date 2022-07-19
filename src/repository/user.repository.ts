@@ -11,7 +11,7 @@ export class UserRepository {
 
     saveUser = async (user: User) => {
 
-        await this.userRepository.save(user);
+        await this.userRepository.insert(user);
 
     }
 

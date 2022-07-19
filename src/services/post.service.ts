@@ -2,25 +2,28 @@ import { PostRepository } from "src/repository/post.repository";
 import { Post } from "src/models/post.model";
 import { AppUtils } from "src/utils/app.utils";
 import { Inject, Injectable } from "@nestjs/common";
-import { User } from "src/models/user.model";
+import { CategoryRepository } from "src/repository/category.repository";
 import { UserRepository } from "src/repository/user.repository";
 
 @Injectable()
 export class PostService {
 
-    constructor(@Inject(PostRepository) private readonly postRepository: PostRepository, @Inject(UserRepository) private readonly userRepository: UserRepository) {}
+    constructor(@Inject(PostRepository) private readonly postRepository: PostRepository, @Inject(CategoryRepository) private readonly categoryRepository: CategoryRepository, @Inject(UserRepository) private readonly userRepository: UserRepository) {}z
 
     savePost = async (req_body, id) : Promise<any>  => {
 
-        const { title, body } = req_body;
+        const { title, body, category_id } = req_body;
 
-        // const user = await this.userRepository.getUser(id);
-        // console.log(user)
+        const user = await this.userRepository.getUser(id);
+        const category = await this.categoryRepository.getCategory(category_id);
 
         let post = new Post();
         post.title = title;
         post.body = body;
-        post.user_id = id;
+        post.categories = [category];
+        post.user_id = user;
+
+        console.log(post)
 
         await this.postRepository.savePost(post)
 

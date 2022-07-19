@@ -56,7 +56,7 @@ export class CategoryService {
 
         const categories = await this.categoryRepository.getCategories()
 
-        let response = AppUtils.appResponseWithData(200, "Users returned", "Success", categories);
+        let response = AppUtils.appResponseWithData(200, "Categories returned", "Success", categories);
         return response;
 
         

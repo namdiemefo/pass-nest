@@ -11,7 +11,7 @@ export class CategoryRepository {
 
     saveCategory = async (category: Category) => {
 
-        await this.categoryRepository.save(category);
+        await this.categoryRepository.insert(category);
 
     }
 

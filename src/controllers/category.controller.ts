@@ -4,6 +4,7 @@ import { CategoryService } from 'src/services/category.service';
 
 @Controller('/api/v1/category')
 export class CategoryController {
+  
   constructor(@Inject(CategoryService) private readonly categoryService: CategoryService) {}
 
   @Post('/create')
@@ -37,11 +38,5 @@ export class CategoryController {
     const my_response = await this.categoryService.getCategories();
     return response.json(my_response);
   }
-
-
-
-
-
-
 
 }

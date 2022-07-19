@@ -7,6 +7,7 @@ async function bootstrap() {
   const seeder = app.get(Seeder);
   //await seeder.seedUser();
   //await seeder.seedPosts()
+  //await seeder.seedCategory()
   await app.listen(3000);
 }
 bootstrap();

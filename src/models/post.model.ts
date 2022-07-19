@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinTable, ManyToMany } from "typeorm";
 import { User } from "./user.model";
 import { Category } from "./category.model";
 
@@ -17,7 +17,10 @@ export class Post {
     @ManyToOne(() => User, (user) => user.post)
     user_id!: User
 
-    @ManyToOne(() => Category)
+    @ManyToMany(() => Category, (category) => category.id, {
+        cascade: true,
+    })
+    @JoinTable()
     categories: Category[];
 
 }
