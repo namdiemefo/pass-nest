@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-// import { Subject } from "./subject.entity";
+import { Post } from "./post.model";
 
 @Entity({ name: "user" })
 export class User {
@@ -8,15 +8,24 @@ export class User {
     id!: number;
 
     @Column()
+    email!: string;
+
+    @Column()
     first_name!: string;
 
     @Column()
     last_name!: string
 
     @Column()
-    password!: string
+    password!: string;
 
-    // @OneToMany(() => Subject, (subject) => subject.class, { cascade: true } )
-    // subject: Subject[]
+    @Column()
+    token!: string;
+
+    @Column()
+    reset_password_token!: string;
+
+    @OneToMany(() => Post, (post) => post.user_id, { cascade: true } )
+    post: Post[]
 
 }
