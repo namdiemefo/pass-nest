@@ -1,5 +1,3 @@
-import { PostRepository } from "src/repository/post.repository";
-import { Post } from "src/models/post.model";
 import { AppUtils } from "src/utils/app.utils";
 import { Inject, Injectable } from "@nestjs/common";
 import { Category } from "src/models/category.model";
@@ -8,14 +6,11 @@ import { CategoryRepository } from "src/repository/category.repository";
 @Injectable()
 export class CategoryService {
 
-    constructor(@Inject(PostRepository) private readonly postRepository: PostRepository, @Inject(CategoryRepository) private readonly categoryRepository: CategoryRepository) {}
+    constructor(@Inject(CategoryRepository) private readonly categoryRepository: CategoryRepository) {}
 
-    saveCategory = async (req_body, id) : Promise<any>  => {
+    saveCategory = async (req_body) : Promise<any>  => {
 
         const { name } = req_body;
-
-        // const user = await this.userRepository.getUser(id);
-        // console.log(user)
 
         let category = new Category();
         category.category_name = name;
