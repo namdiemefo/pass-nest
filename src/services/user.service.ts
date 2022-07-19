@@ -1,17 +1,14 @@
 import { UserRepository } from "src/repository/user.repository";
 import { User } from "src/models/user.model";
 import signJWT from "src/middlewares/jwt";
-import { AppResponse } from "src/interfaces/response.interface";
 import { AppUtils } from "src/utils/app.utils";
 import crypto from 'crypto';
+import { Inject, Injectable } from "@nestjs/common";
 
+@Injectable()
 export class UserService {
 
-    userRepository: UserRepository;
-
-    constructor(userRepository: UserRepository) {
-        this.userRepository = userRepository;
-    }
+    constructor(@Inject(UserRepository) private readonly userRepository: UserRepository) {}
 
     login = async (body) : Promise<any> => {
 

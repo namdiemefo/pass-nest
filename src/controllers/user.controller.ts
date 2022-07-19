@@ -1,10 +1,15 @@
-import { Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
+import { Controller, Delete, Get, Inject, Param, Post, Put, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { UserRepository } from 'src/repository/user.repository';
 import { UserService } from 'src/services/user.service';
+
+// const userRepository = new UserRepository();
+
+// const userService = new UserService(userRepository);
 
 @Controller('/api/v1/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(@Inject(UserService) private readonly userService: UserService) {}
 
   @Post('/register')
   async register(@Req() request: Request, @Res() response: Response) {
@@ -53,7 +58,7 @@ export class UserController {
   }
 
   @Get('/')
-  async getUsers(@Res() response: Response) {
+  async getUsers(@Res() response: Response) : Promise<any> {
     const my_response = await this.userService.getUsers();
     return response.json(my_response);
   }

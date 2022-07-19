@@ -11,14 +11,14 @@ export const env = {
 };
 
 let configPath = env.isDev ? "/src" : "build";
-let rootPath = env.isDev ? APP_ROOT.path : "";
+// let rootPath = env.isDev ? APP_ROOT.path : "";
 console.log(env.isDev);
 
 
-dotenv.config();
+// dotenv.config();
 const config = {
   configPath,
-  rootPath,
+  // rootPath,
   issuer: process.env.ISSUER,
   inProduction: !env.isDev,
   secret: process.env.SECRET,

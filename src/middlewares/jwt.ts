@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { User } from 'src/models/user.model';
 import config from 'src/config/config';
 import logging from 'src/config/logging';
+import { NextFunction } from 'express';
 
 const NAMESPACE = 'AUTH';
 
@@ -38,7 +39,7 @@ export const signJWT = (user: User, callback: (error: Error | null, token: strin
     }
 };
 
-export const extractJWT = (req: Request, res: Response, next: NextFunction) => {
+export const extractJWT = (req, res, next: NextFunction) => {
     logging.info(NAMESPACE, 'Validating Token');
 
     let token = req.headers.authorization?.split(' ')[1];
